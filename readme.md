@@ -25,7 +25,9 @@ Extract the package to a specific folder:
   - pnpm patch @project-osrm/osrm@6.0.0 --edit-dir ./osrm-patch-temp
 
 Apply the string replacement automatically using sed:
-  - sed -i "s|require('./binding/node_osrm.node')|require('./binding_napi_v8/node_osrm.node')|g" ./osrm-patch-temp/lib/index.js
+  - On windows: sed -i "s|require('./binding/node_osrm.node')|require('./binding_napi_v8/node_osrm.node')|g" ./osrm-patch-temp/lib/index.js
+  - On Mac: sed -i "" find node_modules -path "*/@project-osrm/osrm/lib/index.js" -exec sed -i '' 's|\./binding/node_osrm\.node|./binding_napi_v8/node_osrm.node|g' {} \;
+
 
 Commit the patch to your project:
   - pnpm patch-commit ./osrm-patch-temp
