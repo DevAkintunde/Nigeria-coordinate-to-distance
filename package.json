@@ -1,0 +1,14 @@
+{
+	"dependencies": {
+		"@project-osrm/osrm": "6.0.0",
+		"osrm-text-instructions": "^0.15.0"
+	},
+	"pnpm": {
+		"onlyBuiltDependencies": [
+			"@project-osrm/osrm"
+		],
+		"patchedDependencies": {
+			"@project-osrm/osrm@6.0.0": "patches/@project-osrm__osrm@6.0.0.patch"
+		}
+	}
+}
