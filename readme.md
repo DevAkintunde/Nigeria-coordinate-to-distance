@@ -1,6 +1,6 @@
 # Coordinate to Distance 
   - THis allows to calculate distances between two places using open source OSRM in a completely self-hosted environment without external service provider.
-  - This uses the @project-osrm/osrm node package. Keep in mind there is bug in the current 'latest' version 6.0.0. If this bug has not been fixed in a more recent version, kindly use the patching later in this document.
+  - This uses the @project-osrm/osrm node package.
   - Note: Package manager of choice here is pnpm
   - Most important step: ensure you have the osm.pbf file for your region. Nigeria is being used here, and since file size is over 600mb - you will have to download this. See here: https://download.geofabrik.de/africa/nigeria.html
   - In my use case, I needed Lagos and Ogun state, so I identitied the bounding box for this states and hard-cored that for my need.
@@ -20,17 +20,4 @@
  - `sh osrmBin.sh` or `pnpm run build`
  - To test: `node test-route.js` or `pnpm run test`
 
-# Patching @project-osrm/osrm if you run into: "Cannot find module './binding/node_osrm.node'"
-Extract the package to a specific folder:
-  - pnpm patch @project-osrm/osrm@6.0.0 --edit-dir ./osrm-patch-temp
 
-Apply the string replacement automatically using sed:
-  - On windows: sed -i "s|require('./binding/node_osrm.node')|require('./binding_napi_v8/node_osrm.node')|g" ./osrm-patch-temp/lib/index.js
-  - On Mac: sed -i "" find node_modules -path "*/@project-osrm/osrm/lib/index.js" -exec sed -i '' 's|\./binding/node_osrm\.node|./binding_napi_v8/node_osrm.node|g' {} \;
-
-
-Commit the patch to your project:
-  - pnpm patch-commit ./osrm-patch-temp
-
-Clean up:
-  - rm -rf ./osrm-patch-temp
