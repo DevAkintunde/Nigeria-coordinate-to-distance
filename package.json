@@ -1,4 +1,8 @@
 {
+	"scripts": {
+    "test": "node test-route.js",
+    "build": "sh osrmBin.sh"
+	},
 	"dependencies": {
 		"@project-osrm/osrm": "6.0.0",
 		"osrm-text-instructions": "^0.15.0"
